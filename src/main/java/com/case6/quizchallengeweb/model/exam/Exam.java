@@ -16,7 +16,7 @@ public class Exam {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable
     private Set<Question> questions = new HashSet<>();
 

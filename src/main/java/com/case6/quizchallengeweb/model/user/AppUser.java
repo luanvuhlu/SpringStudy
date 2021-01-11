@@ -25,6 +25,6 @@ public class AppUser {
     @JoinColumn(name = "appRole_id")
     private AppRole appRole;
 
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "appUser")
     private Set<UserExam> userExams;
 }

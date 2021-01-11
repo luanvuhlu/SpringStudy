@@ -14,6 +14,6 @@ public class Type {
 
     private String name;
 
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "type")
     private Set<Question> questions;
 }

@@ -28,6 +28,6 @@ public class UserExam {
     @JoinColumn(name = "exam")
     private Exam exam;
 
-    @OneToMany(mappedBy = "userExam", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userExam")
     private Set<UserAnswer> userAnswers;
 }

@@ -26,9 +26,9 @@ public class Question {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question")
     private Set<Answer> answers;
 
-    @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "questions")
     private Set<Exam> exams = new HashSet<>();
 }
