@@ -1,5 +1,6 @@
 package com.case6.quizchallengeweb.model.question;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private Set<Question> questions;
 }

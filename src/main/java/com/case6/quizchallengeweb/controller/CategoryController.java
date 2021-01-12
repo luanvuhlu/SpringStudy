@@ -1,9 +1,13 @@
 package com.case6.quizchallengeweb.controller;
+import com.case6.quizchallengeweb.model.question.Category;
 import com.case6.quizchallengeweb.service.question.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -14,6 +18,23 @@ public class CategoryController {
     private ICategoryService categoryService;
 
 
+    @GetMapping
+    public ResponseEntity<List<Category>>findAllCategory(){
+       List<Category> categoryList=new ArrayList<>();
+        for (Category category:categoryService.getAll()
+             ) {
+            categoryList.add(category);
+        }
+
+        return new ResponseEntity<>(categoryList, HttpStatus.ACCEPTED);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Category> insertCategory(@RequestBody Category category){
+        categoryService.save(category);
+        return new ResponseEntity<>(category, HttpStatus.ACCEPTED);
+    }
 
 
 
