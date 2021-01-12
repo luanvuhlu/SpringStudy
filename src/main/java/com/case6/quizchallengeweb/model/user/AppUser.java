@@ -25,6 +25,6 @@ public class AppUser {
     @JoinColumn(name = "appRole_id")
     private AppRole appRole;
 
-    @OneToMany(mappedBy = "appUser")
+    @OneToMany(mappedBy = "appUser",fetch = FetchType.EAGER)
     private Set<UserExam> userExams;
 }

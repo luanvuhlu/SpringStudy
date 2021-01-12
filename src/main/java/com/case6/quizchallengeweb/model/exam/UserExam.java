@@ -28,6 +28,6 @@ public class UserExam {
     @JoinColumn(name = "exam")
     private Exam exam;
 
-    @OneToMany(mappedBy = "userExam")
+    @OneToMany(mappedBy = "userExam",fetch = FetchType.EAGER)
     private Set<UserAnswer> userAnswers;
 }

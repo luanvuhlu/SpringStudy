@@ -26,7 +26,7 @@ public class Question {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
     private Set<Answer> answers;
 
     @ManyToMany(mappedBy = "questions")
