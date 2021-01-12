@@ -19,8 +19,6 @@ public class AppUser {
 
     private String fullname;
 
-    private String avatar;
-
     @ManyToOne
     @JoinColumn(name = "appRole_id")
     private AppRole appRole;

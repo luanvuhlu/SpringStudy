@@ -21,11 +21,11 @@ public class UserExam {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "appUser")
+    @JoinColumn(name = "appUser_id")
     private AppUser appUser;
 
     @ManyToOne
-    @JoinColumn(name = "exam")
+    @JoinColumn(name = "exam_id")
     private Exam exam;
 
     @OneToMany(mappedBy = "userExam",fetch = FetchType.EAGER)
