@@ -19,14 +19,8 @@ public class CategoryController {
 
 
     @GetMapping
-    public ResponseEntity<List<Category>>findAllCategory(){
-       List<Category> categoryList=new ArrayList<>();
-        for (Category category:categoryService.getAll()
-             ) {
-            categoryList.add(category);
-        }
-
-        return new ResponseEntity<>(categoryList, HttpStatus.ACCEPTED);
+    public ResponseEntity<Iterable<Category>>findAllCategory(){
+        return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
     }
 
 
