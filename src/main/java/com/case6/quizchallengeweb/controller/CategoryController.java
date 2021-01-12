@@ -7,12 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
@@ -35,6 +33,24 @@ public class CategoryController {
         return new ResponseEntity<>(category, HttpStatus.ACCEPTED);
     }
 
+    @DeleteMapping()
+    public  ResponseEntity<Category>findAllCategory(@RequestParam long id){
+        try {
+            Category byId = categoryService.findById(id).get();
+            categoryService.delete(id);
+            return new ResponseEntity<>(byId, HttpStatus.OK);
+        }catch (Exception exception){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "id not found", exception);
+        }
+
+
+
+
+
+}
+
+    //caretory handler exeption
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
@@ -47,5 +63,7 @@ public class CategoryController {
         });
         return errors;
     }
+
+
 
 }
