@@ -1,10 +1,11 @@
 package com.case6.quizchallengeweb.model.question;
-
-import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Answer {
     @Id
@@ -16,6 +17,7 @@ public class Answer {
     private boolean isCorrect;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "question_id")
     private Question question;
 }

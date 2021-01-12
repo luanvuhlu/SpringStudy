@@ -1,11 +1,15 @@
 package com.case6.quizchallengeweb.model.question;
 
 import com.case6.quizchallengeweb.model.exam.UserExam;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class UserAnswer {
     @Id
@@ -18,5 +22,6 @@ public class UserAnswer {
 
     @ManyToOne
     @JoinColumn(name = "userExam")
+    @JsonIgnore
     private UserExam userExam;
 }

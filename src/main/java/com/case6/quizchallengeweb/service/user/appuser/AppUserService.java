@@ -1,5 +1,6 @@
 package com.case6.quizchallengeweb.service.user.appuser;
 
+import com.case6.quizchallengeweb.model.question.Question;
 import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.repository.user.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,7 @@ public class AppUserService implements IAppUserService {
     public void delete(Long id) {
         appUserRepository.deleteById(id);
     }
+
+
+
 }
