@@ -36,5 +36,15 @@ public class QuestionController {
         return new ResponseEntity<>(insertQuestion, HttpStatus.ACCEPTED);
     }
 
+    @PutMapping
+    public ResponseEntity<Question> updateQuestion(@RequestParam long id, @RequestBody Question question) {
 
+        Question question1 = questionService.updateQuestion(id);
+        if (question1!=null){
+            return new ResponseEntity<>(question1, HttpStatus.ACCEPTED);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

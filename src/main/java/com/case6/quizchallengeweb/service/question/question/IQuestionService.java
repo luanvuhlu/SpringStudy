@@ -7,6 +7,9 @@ import com.case6.quizchallengeweb.service.IService;
 import java.util.List;
 
 public interface IQuestionService extends IService<Question> {
-    List<Question> findAllQuestionByCategory_Id (Category category);
-    public Question disableQuestion(long id);
+    List<Question> findAllQuestionByCategory_Id(Category category);
+
+    Question disableQuestion(long id);
+
+    Question updateQuestion(long id);
 }
