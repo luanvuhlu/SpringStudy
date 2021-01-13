@@ -1,17 +1,30 @@
 package com.case6.quizchallengeweb.service.user.appuser;
 
-import com.case6.quizchallengeweb.model.question.Question;
+import com.case6.quizchallengeweb.model.user.AppRole;
 import com.case6.quizchallengeweb.model.user.AppUser;
+import com.case6.quizchallengeweb.model.user.UserPrinciple;
 import com.case6.quizchallengeweb.repository.user.AppUserRepository;
+import com.case6.quizchallengeweb.service.user.approle.IAppRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
+
+
 public class AppUserService implements IAppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
+    @Autowired
+    private IAppRoleService appRoleService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<AppUser> getAll() {
@@ -19,8 +32,15 @@ public class AppUserService implements IAppUserService {
     }
 
     @Override
-    public AppUser save(AppUser appUser) {
-        return appUserRepository.save(appUser);
+    public AppUser save(AppUser user) {
+        if (user.getRoles() == null) {
+            AppRole role = appRoleService.findByName("ROLE_USER");
+            Set<AppRole> roles = new HashSet<>();
+            roles.add(role);
+            user.setRoles(roles);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return appUserRepository.save(user);
     }
 
     @Override
@@ -34,5 +54,15 @@ public class AppUserService implements IAppUserService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser user = appUserRepository.findByUsername(username).get();
+        return UserPrinciple.build(user);
+    }
+
+    @Override
+    public AppUser findByUsername(String username) {
+        return appUserRepository.findByUsername(username).get();
+    }
 
 }

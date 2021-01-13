@@ -11,7 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +22,9 @@ public class AppUser {
 
     private String fullname;
 
-    @ManyToMany
-    @JoinTable
-    private Set<AppRole> appRoles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<AppRole> roles;
 
-    @OneToMany(mappedBy = "appUser",fetch = FetchType.EAGER)
+    @OneToMany
     private Set<UserExam> userExams;
 }
