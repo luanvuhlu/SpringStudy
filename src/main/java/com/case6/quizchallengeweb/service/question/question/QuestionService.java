@@ -7,6 +7,7 @@ import com.case6.quizchallengeweb.repository.question.QuestionRepository;
 import org.hibernate.annotations.AttributeAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,13 @@ public class QuestionService implements IQuestionService {
             return question1;
         }
         return null;
+    }
+
+    @Override
+    public List<Question> searchQuestions(@RequestParam String searchText,@RequestParam String questType,@RequestParam String category){
+
+
+
     }
 
 
