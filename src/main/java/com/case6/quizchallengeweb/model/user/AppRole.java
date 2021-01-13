@@ -14,7 +14,16 @@ public class AppRole {
 
     private String name;
 
-    @OneToMany(mappedBy = "appRole")
+    @ManyToMany
     private Set<AppUser> appUsers;
 
+    public AppRole(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+
+    public AppRole() {
+
+    }
 }

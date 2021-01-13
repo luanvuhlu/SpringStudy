@@ -21,10 +21,9 @@ public class AppUser {
 
     private String avatar;
 
-    @ManyToOne
-    @JoinColumn(name = "appRole_id")
-    private AppRole appRole;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<AppRole> roles;
 
-    @OneToMany(mappedBy = "appUser")
+    @OneToMany
     private Set<UserExam> userExams;
 }
