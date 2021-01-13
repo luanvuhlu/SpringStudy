@@ -34,7 +34,7 @@ public class CategoryController {
     }
 
     @DeleteMapping()
-    public  ResponseEntity<Category>findAllCategory(@RequestParam long id){
+    public  ResponseEntity<Category>deleteCategory(@RequestParam long id){
         try {
             Category byId = categoryService.findById(id).get();
             categoryService.delete(id);
