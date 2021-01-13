@@ -19,7 +19,8 @@ public class Exam {
 
     private String name;
 
-    private String countDown;
+    private int countDown;
+
     @UpdateTimestamp
     private Date date;
 
