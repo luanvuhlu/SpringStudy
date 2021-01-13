@@ -10,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table
 public class AppRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +18,7 @@ public class AppRole {
 
     private String name;
 
-    @OneToMany(mappedBy = "appRole")
+    @ManyToMany(mappedBy = "appRoles")
     private Set<AppUser> appUsers;
 
 }

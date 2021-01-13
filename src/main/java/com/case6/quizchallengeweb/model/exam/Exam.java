@@ -15,12 +15,15 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
+
+    private String countDown;
 
     @JsonIgnore
     @ManyToMany

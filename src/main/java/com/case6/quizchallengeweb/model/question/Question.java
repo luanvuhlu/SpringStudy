@@ -13,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
