@@ -17,8 +17,6 @@ public class AppRole {
 
     private String name;
 
-    @ManyToMany
-    private Set<AppUser> appUsers;
 
     public AppRole(Long id, String name) {
         this.id = id;
