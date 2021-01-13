@@ -39,7 +39,7 @@ public class QuestionController {
     @PutMapping
     public ResponseEntity<Question> updateQuestion(@RequestParam long id, @RequestBody Question question) {
 
-        Question question1 = questionService.updateQuestion(id);
+        Question question1 = questionService.updateQuestion(id,question);
         if (question1!=null){
             return new ResponseEntity<>(question1, HttpStatus.ACCEPTED);
         }

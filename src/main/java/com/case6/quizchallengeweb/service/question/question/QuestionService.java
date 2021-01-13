@@ -65,11 +65,13 @@ public class QuestionService implements IQuestionService {
     }
 
     @Override
-    public Question updateQuestion(long id) {
+    public Question updateQuestion(long id,Question question1) {
         List<Question> questions = questionRepository.findAll();
-        if (questions.contains(questionRepository.findById(id))) {
-            questionRepository.save(questionRepository.findById(id).get());
-            return questionRepository.findById(id).get();
+        Question question = questionRepository.findById(id).get();
+        if (questions.contains(question)) {
+            question1.setId(id);
+            questionRepository.save(question1);
+            return question1;
         }
         return null;
     }

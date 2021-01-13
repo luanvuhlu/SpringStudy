@@ -11,5 +11,5 @@ public interface IQuestionService extends IService<Question> {
 
     Question disableQuestion(long id);
 
-    Question updateQuestion(long id);
+    Question updateQuestion(long id,Question question);
 }
