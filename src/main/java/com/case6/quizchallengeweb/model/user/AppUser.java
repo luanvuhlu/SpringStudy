@@ -19,8 +19,6 @@ public class AppUser {
 
     private String fullname;
 
-    private String avatar;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<AppRole> roles;
 
