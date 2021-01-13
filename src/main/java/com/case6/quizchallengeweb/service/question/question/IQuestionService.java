@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IQuestionService extends IService<Question> {
     List<Question> findAllQuestionByCategory_Id (Category category);
+    public Question disableQuestion(long id);
 }

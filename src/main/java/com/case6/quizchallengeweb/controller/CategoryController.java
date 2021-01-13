@@ -41,7 +41,7 @@ public class CategoryController {
             return new ResponseEntity<>(byId, HttpStatus.OK);
         }catch (Exception exception){
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "id not found", exception);
+                    HttpStatus.BAD_REQUEST, "Provide correct Actor Id", exception);
         }
 
 

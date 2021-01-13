@@ -7,10 +7,7 @@ import com.case6.quizchallengeweb.service.question.question.IQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -23,8 +20,14 @@ public class QuestionController {
     private IAnswerService answerService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Question>> findAllCategory() {
+    public ResponseEntity<Iterable<Question>> findAllQuestion() {
         return new ResponseEntity<>(questionService.getAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Question> disableQuestion(@RequestParam long id) {
+        Question disableQuestion = questionService.disableQuestion(id);
+        return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
     }
 
 }
