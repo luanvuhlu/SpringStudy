@@ -9,7 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.Valid;
+//import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -28,7 +28,7 @@ public class CategoryController {
 
 
     @PostMapping
-    public ResponseEntity<Category> insertCategory(@Valid @RequestBody Category category){
+    public ResponseEntity<Category> insertCategory(@RequestBody Category category){
         categoryService.save(category);
         return new ResponseEntity<>(category, HttpStatus.ACCEPTED);
     }
@@ -43,11 +43,6 @@ public class CategoryController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Provide correct Actor Id", exception);
         }
-
-
-
-
-
 }
 
     //caretory handler exeption
@@ -63,7 +58,4 @@ public class CategoryController {
         });
         return errors;
     }
-
-
-
 }
