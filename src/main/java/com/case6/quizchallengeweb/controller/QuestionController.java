@@ -30,6 +30,11 @@ public class QuestionController {
         return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping
+    public ResponseEntity<Question> insertQuestion(@RequestBody Question question) {
+        Question insertQuestion = questionService.save(question);
+        return new ResponseEntity<>(insertQuestion, HttpStatus.ACCEPTED);
+    }
 
 
 }
