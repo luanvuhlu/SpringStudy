@@ -1,6 +1,7 @@
 package com.case6.quizchallengeweb.model.exam;
 
 import com.case6.quizchallengeweb.model.question.Question;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +22,10 @@ public class Exam {
 
     private String name;
 
-//    @ManyToMany
-//    @JoinTable
-//    private Set<Question> questions = new HashSet<>();
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable
+    private Set<Question> questions = new HashSet<>();
 
     @UpdateTimestamp
     private Date date;

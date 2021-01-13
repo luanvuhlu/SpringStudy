@@ -12,4 +12,12 @@ public interface IQuestionService extends IService<Question> {
     Question disableQuestion(long id);
 
     Question updateQuestion(long id,Question question);
+
+    List<Question> getAllQuestByTypeIsAndCategoryIsAndTitleContaining(String type, String Category, String title);
+
+//    Iterable<Question> getAllQuestByTitleContaining(String title);
+//
+//    Iterable<Question> getAllQuestByType_NameAndTitleContaining(String type, String title);
+//
+//    Iterable<Question> getAllQuestByCategory_NameAndTitleContaining(String Category, String title);
 }

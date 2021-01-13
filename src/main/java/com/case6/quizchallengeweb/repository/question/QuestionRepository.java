@@ -11,4 +11,12 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     Iterable<Question> getAllByCategoryIs(Category category);
 
+    Iterable<Question> getAllByType_NameAndCategory_NameAndTitleContaining(String type, String Category, String title);
+
+    Iterable<Question> getAllByTitleContaining(String title);
+
+    Iterable<Question> getAllByType_NameAndTitleContaining(String type, String title);
+
+    Iterable<Question> getAllByCategory_NameAndTitleContaining(String Category, String title);
+
 }

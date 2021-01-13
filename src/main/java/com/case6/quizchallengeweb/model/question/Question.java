@@ -26,7 +26,6 @@ public class Question {
     @JoinColumn(name = "category_id")
     private Category category;
 
-
     @ManyToOne
     @JoinColumn(name = "type_id")
     private Type type;
@@ -34,7 +33,8 @@ public class Question {
 
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
     private Set<Answer> answers;
-//
-//    @ManyToMany(mappedBy = "questions")
-//    private Set<Exam> exams = new HashSet<>();
+
+    @ManyToMany(mappedBy = "questions")
+    @JsonIgnore
+    private Set<Exam> exams = new HashSet<>();
 }

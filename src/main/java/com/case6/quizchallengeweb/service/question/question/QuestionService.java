@@ -66,7 +66,7 @@ public class QuestionService implements IQuestionService {
     }
 
     @Override
-    public Question updateQuestion(long id,Question question1) {
+    public Question updateQuestion(long id, Question question1) {
         List<Question> questions = questionRepository.findAll();
         Question question = questionRepository.findById(id).get();
         if (questions.contains(question)) {
@@ -78,12 +78,27 @@ public class QuestionService implements IQuestionService {
     }
 
     @Override
-    public List<Question> searchQuestions(@RequestParam String searchText,@RequestParam String questType,@RequestParam String category){
+    public List<Question> getAllQuestByTypeIsAndCategoryIsAndTitleContaining(String type, String category, String title) {
+        Iterable<Question> questions;
+        if (!type.equals("") && !category.equals("")) {
+            questions = questionRepository.getAllByType_NameAndCategory_NameAndTitleContaining(type, category, title);
+        } else if (type.equals("") && category.equals("")) {
+             questions = questionRepository.getAllByTitleContaining(title);
+        } else if (!type.equals("")) {
+             questions = questionRepository.getAllByType_NameAndTitleContaining(type, title);
+        } else {
+             questions = questionRepository.getAllByCategory_NameAndTitleContaining(category, title);
+        }
 
+        List<Question> questionsList = new ArrayList<>();
+        for (Question question : questions
+        ) {
+            questionsList.add(question);
+        }
+        return questionsList;
 
 
     }
-
 
 
 }
