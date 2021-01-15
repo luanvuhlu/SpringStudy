@@ -64,4 +64,11 @@ public class CategoryController {
         });
         return errors;
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+        Optional<Category> optionalCategory = categoryService.findById(id);
+        return optionalCategory.map(category -> new ResponseEntity<>(category,HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
