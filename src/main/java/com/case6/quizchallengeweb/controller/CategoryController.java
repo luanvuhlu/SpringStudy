@@ -4,7 +4,9 @@ import com.case6.quizchallengeweb.service.question.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,8 +31,12 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> insertCategory(@RequestBody Category category){
-        categoryService.save(category);
-        return new ResponseEntity<>(category, HttpStatus.ACCEPTED);
+        try {
+            categoryService.save(category);
+            return new ResponseEntity<>(category, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping()
