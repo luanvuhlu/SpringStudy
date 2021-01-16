@@ -39,12 +39,12 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping()
-    public  ResponseEntity<Category>deleteCategory(@RequestParam long id){
+    @DeleteMapping("/{id}")
+    public  ResponseEntity<Category>deleteCategory(@PathVariable Long id){
         try {
-            Category byId = categoryService.findById(id).get();
+            Category category = categoryService.findById(id).get();
             categoryService.delete(id);
-            return new ResponseEntity<>(byId, HttpStatus.OK);
+            return new ResponseEntity<>(category, HttpStatus.OK);
         }catch (Exception exception){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Provide correct Actor Id", exception);
@@ -70,5 +70,14 @@ public class CategoryController {
         Optional<Category> optionalCategory = categoryService.findById(id);
         return optionalCategory.map(category -> new ResponseEntity<>(category,HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> editCategory(@PathVariable Long id, @RequestBody Category category) {
+        Optional<Category> optionalCategory = categoryService.findById(id);
+        return optionalCategory.map(category1 -> {
+            category.setId(category1.getId());
+            return new ResponseEntity<>(categoryService.save(category), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
