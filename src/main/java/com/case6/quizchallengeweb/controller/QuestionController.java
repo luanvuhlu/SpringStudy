@@ -2,8 +2,10 @@ package com.case6.quizchallengeweb.controller;
 
 import com.case6.quizchallengeweb.model.question.Category;
 import com.case6.quizchallengeweb.model.question.Question;
+import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.service.question.answer.IAnswerService;
 import com.case6.quizchallengeweb.service.question.question.IQuestionService;
+import com.case6.quizchallengeweb.service.user.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,13 @@ public class QuestionController {
     private IQuestionService questionService;
     @Autowired
     private IAnswerService answerService;
+    @Autowired
+    private IAppUserService userService;
+
+    @ModelAttribute("user")
+    public AppUser user() {
+        return userService.getCurrentUser();
+    }
 
     @GetMapping
     public ResponseEntity<Iterable<Question>> findAllQuestion() {
@@ -29,9 +38,9 @@ public class QuestionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
-        Question disableQuestion = questionService.disableQuestion(id);
+        Question disableQuestion = questionService.findById(id).get();
 
-        if (disableQuestion!=null){
+        if (disableQuestion.getExamQuestions().size()==0){
             return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
         }else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
