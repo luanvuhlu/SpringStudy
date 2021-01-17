@@ -40,9 +40,9 @@ public class QuestionController {
     public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
         Question disableQuestion = questionService.findById(id).get();
 
-        if (disableQuestion.getExamQuestions().size()==0){
+        if (disableQuestion.getExamQuestions().size() == 0) {
             return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
-        }else
+        } else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -63,8 +63,8 @@ public class QuestionController {
 
 
     @GetMapping("/search")
-    public  ResponseEntity<List<Question>> searchQuestions(@RequestParam String searchText, @RequestParam String questType, @RequestParam String category) {
-       List<Question> questions= questionService.getAllQuestByTypeIsAndCategoryIsAndTitleContaining(questType,category,searchText);
+    public ResponseEntity<List<Question>> searchQuestions(@RequestParam String searchText, @RequestParam String questType, @RequestParam String category) {
+        List<Question> questions = questionService.getAllQuestByTypeIsAndCategoryIsAndTitleContaining(questType, category, searchText);
         return new ResponseEntity<>(questions, HttpStatus.ACCEPTED);
     }
 
@@ -72,7 +72,13 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id) {
         Optional<Question> optionalQuestion = questionService.findById(id);
-        return optionalQuestion.map(question -> new ResponseEntity<>(question,HttpStatus.OK))
+        return optionalQuestion.map(question -> new ResponseEntity<>(question, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/quest-list/{id}")
+    public ResponseEntity<List<Question>> getAllQuestionListByExamId(@PathVariable Long id) {
+        List<Question> allQuestionByExamId = questionService.getAllQuestionByExamId(id);
+        return new ResponseEntity<>(allQuestionByExamId, HttpStatus.ACCEPTED);
     }
 }
