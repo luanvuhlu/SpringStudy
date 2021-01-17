@@ -50,7 +50,7 @@ public class AnswerController {
         Optional<Answer> answerOptional = answerService.findById(id);
         return answerOptional.map(answer -> {
             answerService.delete(id);
-            return new ResponseEntity<Answer>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Answer>(HttpStatus.OK);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
