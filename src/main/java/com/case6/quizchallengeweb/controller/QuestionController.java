@@ -27,8 +27,8 @@ public class QuestionController {
         return new ResponseEntity<>(questionService.getAll(), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Question> disableQuestion(@RequestParam long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
         Question disableQuestion = questionService.disableQuestion(id);
         return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
     }
