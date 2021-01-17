@@ -41,6 +41,8 @@ public class QuestionController {
         Question disableQuestion = questionService.findById(id).get();
 
         if (disableQuestion.getExamQuestions().size() == 0) {
+            disableQuestion.setActive(false);
+            questionService.save(disableQuestion);
             return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
         } else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
