@@ -33,7 +33,7 @@ public class Question {
     private Type type;
 
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
     private Set<Answer> answers;
 
