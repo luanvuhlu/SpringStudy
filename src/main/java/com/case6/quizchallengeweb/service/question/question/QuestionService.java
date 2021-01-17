@@ -121,5 +121,10 @@ public class QuestionService implements IQuestionService {
 
     }
 
+    @Override
+    public List<Question> getAllQuestionByExamId(Long id) {
+        return null;
+    }
+
 
 }

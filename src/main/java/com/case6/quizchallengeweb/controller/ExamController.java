@@ -29,4 +29,6 @@ public class ExamController {
     public ResponseEntity<Iterable<Exam>> findAllExams(){
         return new ResponseEntity<>(examService.getAll(), HttpStatus.OK);
     }
+
+
 }

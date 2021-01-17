@@ -1,5 +1,4 @@
 package com.case6.quizchallengeweb.service.user.appuser;
-
 import com.case6.quizchallengeweb.model.user.AppRole;
 import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.model.user.UserPrinciple;
@@ -16,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
 @Service
-
-
 public class AppUserService implements IAppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
