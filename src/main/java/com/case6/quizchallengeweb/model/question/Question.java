@@ -37,7 +37,7 @@ public class Question {
     @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
     private Set<Answer> answers;
 
-
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
     private Set<ExamQuestion> examQuestions;
 }

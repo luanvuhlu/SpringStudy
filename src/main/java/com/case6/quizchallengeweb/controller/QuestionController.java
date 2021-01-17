@@ -2,8 +2,10 @@ package com.case6.quizchallengeweb.controller;
 
 import com.case6.quizchallengeweb.model.question.Category;
 import com.case6.quizchallengeweb.model.question.Question;
+import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.service.question.answer.IAnswerService;
 import com.case6.quizchallengeweb.service.question.question.IQuestionService;
+import com.case6.quizchallengeweb.service.user.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,13 @@ public class QuestionController {
     private IQuestionService questionService;
     @Autowired
     private IAnswerService answerService;
+    @Autowired
+    private IAppUserService userService;
+
+    @ModelAttribute("user")
+    public AppUser user() {
+        return userService.getCurrentUser();
+    }
 
     @GetMapping
     public ResponseEntity<Iterable<Question>> findAllQuestion() {
@@ -31,11 +40,9 @@ public class QuestionController {
     public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
         Question disableQuestion = questionService.findById(id).get();
 
-        if (disableQuestion.getExamQuestions().size()==0){
-            disableQuestion.setActive(false);
-            this.questionService.save(disableQuestion);
+        if (disableQuestion.getExamQuestions().size() == 0) {
             return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
-        }else
+        } else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -56,8 +63,8 @@ public class QuestionController {
 
 
     @GetMapping("/search")
-    public  ResponseEntity<List<Question>> searchQuestions(@RequestParam String searchText, @RequestParam String questType, @RequestParam String category) {
-       List<Question> questions= questionService.getAllQuestByTypeIsAndCategoryIsAndTitleContaining(questType,category,searchText);
+    public ResponseEntity<List<Question>> searchQuestions(@RequestParam String searchText, @RequestParam String questType, @RequestParam String category) {
+        List<Question> questions = questionService.getAllQuestByTypeIsAndCategoryIsAndTitleContaining(questType, category, searchText);
         return new ResponseEntity<>(questions, HttpStatus.ACCEPTED);
     }
 
@@ -65,7 +72,13 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id) {
         Optional<Question> optionalQuestion = questionService.findById(id);
-        return optionalQuestion.map(question -> new ResponseEntity<>(question,HttpStatus.OK))
+        return optionalQuestion.map(question -> new ResponseEntity<>(question, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/quest-list/{id}")
+    public ResponseEntity<List<Question>> getAllQuestionListByExamId(@PathVariable Long id) {
+        List<Question> allQuestionByExamId = questionService.getAllQuestionByExamId(id);
+        return new ResponseEntity<>(allQuestionByExamId, HttpStatus.ACCEPTED);
     }
 }
