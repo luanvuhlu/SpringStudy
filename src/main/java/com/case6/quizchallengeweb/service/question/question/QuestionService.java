@@ -37,13 +37,22 @@ public class QuestionService implements IQuestionService {
     @Override
     public Question save(Question question) {
         Set<Answer> answers = question.getAnswers();
+
         for (Answer answer : answers
         ){
             answer.setQuestion(question);
-                answerRepository.save(answer);
+
+        }
+        questionRepository.save(question);
+        for (Answer answer: answers
+             ) {
+            answerRepository.save(answer);
         }
         return questionRepository.save(question);
+
     }
+
+
 
     @Override
     public Optional<Question> findById(Long id) {
