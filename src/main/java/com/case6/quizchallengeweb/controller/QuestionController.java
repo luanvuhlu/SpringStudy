@@ -29,9 +29,11 @@ public class QuestionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
-        Question disableQuestion = questionService.disableQuestion(id);
+        Question disableQuestion = questionService.findById(id).get();
 
-        if (disableQuestion!=null){
+        if (disableQuestion.getExamQuestions().size()==0){
+            disableQuestion.setActive(false);
+            this.questionService.save(disableQuestion);
             return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
         }else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
