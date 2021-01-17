@@ -78,12 +78,12 @@ public class QuestionService implements IQuestionService {
     @Override
     public Question disableQuestion(long id) {
         Question disableQuestion = questionRepository.findById(id).get();
-
+        if (disableQuestion.getExamQuestions().size()==0){
             disableQuestion.setActive(false);
             questionRepository.save(disableQuestion);
             return disableQuestion;
-
-
+        }
+        else return null;
     }
 
     @Override

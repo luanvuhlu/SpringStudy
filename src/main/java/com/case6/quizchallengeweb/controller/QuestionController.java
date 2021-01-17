@@ -30,7 +30,11 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Question> disableQuestion(@PathVariable Long id) {
         Question disableQuestion = questionService.disableQuestion(id);
-        return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
+
+        if (disableQuestion!=null){
+            return new ResponseEntity<>(disableQuestion, HttpStatus.ACCEPTED);
+        }else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping
@@ -54,6 +58,7 @@ public class QuestionController {
        List<Question> questions= questionService.getAllQuestByTypeIsAndCategoryIsAndTitleContaining(questType,category,searchText);
         return new ResponseEntity<>(questions, HttpStatus.ACCEPTED);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id) {
