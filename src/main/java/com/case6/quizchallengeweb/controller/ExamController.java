@@ -2,6 +2,7 @@ package com.case6.quizchallengeweb.controller;
 
 import com.case6.quizchallengeweb.model.exam.Exam;
 import com.case6.quizchallengeweb.model.question.Category;
+import com.case6.quizchallengeweb.model.question.Question;
 import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.service.exam.exam.IExamService;
 import com.case6.quizchallengeweb.service.exam.userexam.IUserExamService;
@@ -36,5 +37,4 @@ public class ExamController {
         return optionalExam.map(exam -> new ResponseEntity<>(exam,HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 }
