@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,5 +83,11 @@ public class QuestionController {
     public ResponseEntity<List<Question>> getAllQuestionListByExamId(@PathVariable Long id) {
         List<Question> allQuestionByExamId = questionService.getAllQuestionByExamId(id);
         return new ResponseEntity<>(allQuestionByExamId, HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/transer")
+    public ResponseEntity<Question> transerQuest(@RequestBody Question question){
+        return new ResponseEntity<>(question, HttpStatus.ACCEPTED);
+
     }
 }

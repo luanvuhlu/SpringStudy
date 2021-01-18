@@ -37,4 +37,11 @@ public class ExamController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PostMapping
+    public ResponseEntity<Exam> saveExam(@RequestBody Exam exam){
+        examService.save(exam);
+
+        return new ResponseEntity<>(exam, HttpStatus.OK);
+    }
+
 }
