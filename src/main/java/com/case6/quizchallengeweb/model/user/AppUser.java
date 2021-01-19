@@ -26,7 +26,7 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<AppRole> roles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "appUser")
     @JsonIgnore
     private Set<UserExam> userExams;
 }

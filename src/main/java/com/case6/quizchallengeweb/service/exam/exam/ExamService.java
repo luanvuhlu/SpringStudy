@@ -2,9 +2,8 @@ package com.case6.quizchallengeweb.service.exam.exam;
 
 import com.case6.quizchallengeweb.model.exam.Exam;
 import com.case6.quizchallengeweb.model.exam.ExamQuestion;
-import com.case6.quizchallengeweb.model.exam.UserExam;
+import com.case6.quizchallengeweb.model.question.Question;
 import com.case6.quizchallengeweb.repository.exam.ExamRepository;
-import com.case6.quizchallengeweb.repository.exam.UserExamRepository;
 import com.case6.quizchallengeweb.repository.question.QuestionExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,6 @@ public class ExamService implements IExamService {
     private ExamRepository examRepository;
     @Autowired
     private QuestionExamRepository questionExamRepository;
-    @Autowired
-    private UserExamRepository userExamRepository;
 
     @Override
     public Iterable<Exam> getAll() {
@@ -31,19 +28,26 @@ public class ExamService implements IExamService {
 
     @Override
     public Exam save(Exam exam) {
-        List<Exam> all = examRepository.findAll();
-        Exam exam1 = all.get(all.size() - 1);
-       long newId= exam1.getId()+1;
+//        List<Exam> all = examRepository.findAll();
+//        Exam exam1 = all.get(all.size() - 1);
+//       long newId= exam1.getId()+1;
+//        exam.setId(newId);
+//        List<Question> questionList=new ArrayList<>();
+//
+//        Set<ExamQuestion> examQuestions = exam.getExamQuestions();
+//
+//        for (ExamQuestion examQuestion :examQuestions
+//             ) {
+//          questionList.add(examQuestion.getQuestion());
+//        }
+//        for (ExamQuestion examQuestion : examQuestions
+//        ) {
+//            examQuestion.setExam(exam);
+//            questionExamRepository.save(examQuestion);
+//
+//        }
 
-        exam.setId(newId);
-        Set<ExamQuestion> examQuestions = exam.getExamQuestions();
-
-        for (ExamQuestion examQuestion : examQuestions
-        ) {
-            examQuestion.setExam(exam);
-            questionExamRepository.save(examQuestion);
-
-        }
+        examRepository.save(exam);
 
         return examRepository.save(exam);
     }
@@ -56,18 +60,5 @@ public class ExamService implements IExamService {
     @Override
     public void delete(Long id) {
         examRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Exam> getAllExamByUserId(Long id) {
-        List<UserExam> allUserExamByUserId = userExamRepository.getAllByAppUserId(id);
-        List<Exam> examList = new ArrayList<>();
-        for (UserExam userExam : allUserExamByUserId
-        ){
-               examList.add(userExam.getExam());
-        }
-
-
-        return examList;
     }
 }

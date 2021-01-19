@@ -24,8 +24,9 @@ public class Exam {
     @UpdateTimestamp
     private Date date;
 
-    @OneToMany(mappedBy = "exam",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "exam")
     private Set<ExamQuestion> examQuestions;
+
 
     @OneToMany(mappedBy = "exam")
     @JsonIgnore
