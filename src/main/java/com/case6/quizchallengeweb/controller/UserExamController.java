@@ -20,19 +20,14 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/userexams")
 public class UserExamController {
-
     @Autowired
     private IUserExamService userExamService;
-
     @Autowired
     private IAppUserService appUserService;
-
     @Autowired
     private IExamService examService;
-
     @Autowired
     private IUserAnswerService userAnswerService;
-
     @GetMapping
     public ResponseEntity<Iterable<UserExam>> getAllUserExam() {
         Iterable<UserExam> all = userExamService.getAll();
