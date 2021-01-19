@@ -26,4 +26,8 @@ public class Exam {
 
     @OneToMany(mappedBy = "exam",cascade = CascadeType.ALL)
     private Set<ExamQuestion> examQuestions;
+
+    @OneToMany(mappedBy = "exam")
+    @JsonIgnore
+    private Set<UserExam> userExams;
 }
