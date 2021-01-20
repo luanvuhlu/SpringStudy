@@ -18,7 +18,6 @@ import java.util.Set;
 public class UserController {
     @Autowired
     AppUserService appUserService;
-
     @GetMapping
     public ResponseEntity<Iterable<AppUser>> findAllUser(){
         return new ResponseEntity<>(appUserService.getAll(), HttpStatus.OK);
