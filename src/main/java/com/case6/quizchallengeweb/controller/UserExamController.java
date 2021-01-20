@@ -9,12 +9,10 @@ import com.case6.quizchallengeweb.service.user.appuser.IAppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -32,5 +30,26 @@ public class UserExamController {
     public ResponseEntity<Iterable<UserExam>> getAllUserExam() {
         Iterable<UserExam> all = userExamService.getAll();
         return new ResponseEntity<>(all, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/exam-list/{id}")
+    public ResponseEntity<List<Exam>> getAllExamByUserId(@PathVariable Long id) {
+        List<Exam> allExamByUserId = examService.getAllExamByUserId(id);
+        return new ResponseEntity<>(allExamByUserId, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<UserExam>> getUserExamById(@PathVariable Long id) {
+        List<UserExam> allUserExamByUserID = userExamService.getAllByAppUserId(id);
+        return new ResponseEntity<>(allUserExamByUserID, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/mark/{id}")
+    public ResponseEntity<Double> countMark(@PathVariable Long id) {
+        Optional<UserExam> optionalUserExam = userExamService.findById(id);
+        return optionalUserExam.map(userExam
+                -> new ResponseEntity(userExamService.countMark(userExam.getAppUser(), userExam.getExam()), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }
