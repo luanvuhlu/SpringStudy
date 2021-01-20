@@ -3,6 +3,7 @@ package com.case6.quizchallengeweb.controller;
 import com.case6.quizchallengeweb.model.exam.Exam;
 import com.case6.quizchallengeweb.model.exam.UserExam;
 import com.case6.quizchallengeweb.model.question.Category;
+import com.case6.quizchallengeweb.model.user.AppUser;
 import com.case6.quizchallengeweb.service.exam.exam.IExamService;
 import com.case6.quizchallengeweb.service.exam.userexam.IUserExamService;
 import com.case6.quizchallengeweb.service.question.useranswer.IUserAnswerService;
@@ -45,10 +46,18 @@ public class UserExamController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserExam> getUserExamById(@PathVariable Long id) {
+    public ResponseEntity<List<UserExam>> getUserExamById(@PathVariable Long id) {
+        List<UserExam> allUserExamByUserID = userExamService.getAllByAppUserId(id);
+        return new ResponseEntity<>(allUserExamByUserID, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/mark/{id}")
+    public ResponseEntity<Double> countMark(@PathVariable Long id) {
         Optional<UserExam> optionalUserExam = userExamService.findById(id);
-        return optionalUserExam.map(userExam -> new ResponseEntity<>(userExam,HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return optionalUserExam.map(userExam
+                -> new ResponseEntity(userExamService.countMark(userExam.getAppUser(), userExam.getExam()), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
 }
