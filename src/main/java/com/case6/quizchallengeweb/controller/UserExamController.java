@@ -4,6 +4,7 @@ import com.case6.quizchallengeweb.model.exam.Exam;
 import com.case6.quizchallengeweb.model.exam.UserExam;
 import com.case6.quizchallengeweb.model.question.Category;
 import com.case6.quizchallengeweb.model.user.AppUser;
+import com.case6.quizchallengeweb.model.question.UserAnswer;
 import com.case6.quizchallengeweb.service.exam.exam.IExamService;
 import com.case6.quizchallengeweb.service.exam.userexam.IUserExamService;
 import com.case6.quizchallengeweb.service.question.useranswer.IUserAnswerService;
@@ -23,12 +24,10 @@ public class UserExamController {
 
     @Autowired
     private IUserExamService userExamService;
-
-    @Autowired
-    private IExamService examService;
-
     @Autowired
     private IAppUserService appUserService;
+    @Autowired
+    private IExamService examService;
 
     @Autowired
     private IUserAnswerService userAnswerService;
@@ -46,8 +45,8 @@ public class UserExamController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<UserExam>> getUserExamByAppUserId(@PathVariable Long id) {
-        List<UserExam> allUserExamByUserID = userExamService.getAllByAppUserId(id);
+    public ResponseEntity<List<UserExam>> getUserExamById(@PathVariable Long id) {
+        List<UserExam> allUserExamByUserID = userExamService.getAllById(id);
         return new ResponseEntity<>(allUserExamByUserID, HttpStatus.OK);
 
     }
@@ -60,4 +59,10 @@ public class UserExamController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
+    @PostMapping
+    public ResponseEntity<UserExam> saveNewUserExam(@RequestBody UserExam userExam){
+        userExam.setAppUser(this.appUserService.findById((long) 5).get());
+        this.userExamService.save(userExam);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
