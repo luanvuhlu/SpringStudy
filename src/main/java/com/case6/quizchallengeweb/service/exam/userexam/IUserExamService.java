@@ -8,7 +8,9 @@ import com.case6.quizchallengeweb.service.IService;
 import java.util.List;
 
 public interface IUserExamService extends IService<UserExam> {
-    List<UserExam> getAllByAppUserId(Long id);
+//    List<UserExam> getAllByAppUserId(Long id);
+
+    List<UserExam> getAllById(Long id);
 
     UserExam getByAppUserIdAndExamId(Long appUserId, Long examId);
 
