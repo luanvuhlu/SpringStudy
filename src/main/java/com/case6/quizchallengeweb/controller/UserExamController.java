@@ -2,6 +2,7 @@ package com.case6.quizchallengeweb.controller;
 
 import com.case6.quizchallengeweb.model.exam.Exam;
 import com.case6.quizchallengeweb.model.exam.UserExam;
+import com.case6.quizchallengeweb.model.question.UserAnswer;
 import com.case6.quizchallengeweb.service.exam.exam.IExamService;
 import com.case6.quizchallengeweb.service.exam.userexam.IUserExamService;
 import com.case6.quizchallengeweb.service.question.useranswer.IUserAnswerService;
@@ -51,5 +52,12 @@ public class UserExamController {
         return optionalUserExam.map(userExam
                 -> new ResponseEntity(userExamService.countMark(userExam.getAppUser(), userExam.getExam()), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserExam> saveNewUserExam(@RequestBody UserExam userExam){
+        userExam.setAppUser(this.appUserService.findById((long) 5).get());
+        this.userExamService.save(userExam);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

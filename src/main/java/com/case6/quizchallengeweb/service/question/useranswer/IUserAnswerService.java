@@ -8,4 +8,5 @@ import com.case6.quizchallengeweb.service.IService;
 import java.util.List;
 
 public interface IUserAnswerService extends IService<UserAnswer> {
+    void saveArrayUserAnswer(Iterable<UserAnswer> arr);
 }

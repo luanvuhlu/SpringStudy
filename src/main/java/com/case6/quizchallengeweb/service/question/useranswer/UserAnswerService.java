@@ -36,4 +36,9 @@ public class UserAnswerService implements IUserAnswerService {
         userAnswerRepository.deleteById(id);
     }
 
+    @Override
+    public void saveArrayUserAnswer(Iterable<UserAnswer> arr){
+            this.userAnswerRepository.saveAll(arr);
+    }
+
 }
