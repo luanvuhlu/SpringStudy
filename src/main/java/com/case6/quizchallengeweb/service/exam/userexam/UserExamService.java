@@ -99,7 +99,7 @@ public class UserExamService implements IUserExamService {
                 }
 
                 userFalseAnswerCount = userAnswerSize - userTrueAnswerCount;
-                mark += ((userTrueAnswerCount  - 1.5 * userFalseAnswerCount)/ correctAnswerCount);
+                mark += ((userTrueAnswerCount - 1.5 * userFalseAnswerCount) / correctAnswerCount);
             }
 
             if (question.getType().getId() == 3) {
@@ -107,7 +107,7 @@ public class UserExamService implements IUserExamService {
                     if (userAnswer.getQuestionIndex() == question.getId()) {
                         for (Answer answer : correctAnswers) {
                             if (userAnswer.getContent().equalsIgnoreCase(answer.getContent())) {
-                                mark+=1;
+                                mark += 1;
                             }
                         }
                     }
@@ -117,6 +117,11 @@ public class UserExamService implements IUserExamService {
         }
 
         int questionSize = questions.size();
-        return Math.round(mark/questionSize * 100);
+        return Math.round(mark / questionSize * 100);
+    }
+
+    @Override
+    public List<UserExam> getAllByExamId(Long id) {
+        return userExamRepository.getAllByExamId(id);
     }
 }
