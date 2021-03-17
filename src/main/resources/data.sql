@@ -1,0 +1,1 @@
+INSERT INTO APP_USER(ID,FULLNAME,PASSWORD,USERNAME) VALUES(1, 'luan vu van', '$2y$10$.kjSq0fedd3ABK1ivZzdfe7YcgGEno2IvTNmH1TmdJcdVN90l6go2', 'luanvv');

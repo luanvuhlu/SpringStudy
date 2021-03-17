@@ -66,31 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(10);
     }
 
-//    @PostConstruct
-//    public void init() {
-//        List<AppUser> users = (List<AppUser>) userService.getAll();
-//        List<AppRole> roleList = (List<AppRole>) roleService.getAll();
-//        if (roleList.isEmpty()) {
-//            AppRole roleAdmin = new AppRole();
-//            roleAdmin.setId(1L);
-//            roleAdmin.setName("ROLE_ADMIN");
-//            roleService.save(roleAdmin);
-//            AppRole roleCoach = new AppRole();
-//            roleCoach.setId(2L);
-//            roleCoach.setName("ROLE_USER");
-//            roleService.save(roleCoach);
-//        }
-//        if (users.isEmpty()) {
-//            AppUser admin = new AppUser();
-//            Set<AppRole> roles = new HashSet<>();
-//            roles.add(new AppRole(1L, "ROLE_ADMIN"));
-//            admin.setUsername("admin");
-//            admin.setFullname("admin");
-//            admin.setPassword("123456");
-//            admin.setRoles(roles);
-//            userService.save(admin);
-//        }
-//    }
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -110,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.cors();
+        http.cors().and()
+        	.headers().frameOptions().sameOrigin();
     }
 }
