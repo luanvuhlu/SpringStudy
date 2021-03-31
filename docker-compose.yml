@@ -6,7 +6,29 @@ services:
     ports:
       - '8080:8080'
     volumes:
-      - /mnt/d/MyDocuments/Projects/SpringStudy/app:/app
+      - type: bind
+        source: ./app
+        target: /app
+        volume:
+          nocopy: true  # flag to disable copying of data from a container when a volume is created
     working_dir: /app
     user: appuser
     command: ./gradlew --project-cache-dir /tmp/gradle-cache bootRun
+    depends_on:
+      - db
+    environment:
+      DB_URL: db:3306/${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+volumes:
+  db_data: {}
