@@ -19,8 +19,8 @@
  ## TODO
  [ ] Custom logging  
  [ ] Exception Handling  
- [ ] Docker support  
+ [x] Docker support  
  [ ] Converter support  
- [ ] Caching    
+ [ ] Caching  
  [ ] Spring AOP  
- [ ] Validation  
+ [ ] Validation
