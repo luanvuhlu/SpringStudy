@@ -9,6 +9,8 @@ import com.case6.quizchallengeweb.repository.exam.UserExamRepository;
 import com.case6.quizchallengeweb.repository.question.QuestionExamRepository;
 import com.case6.quizchallengeweb.service.exam.userexam.IUserExamService;
 import com.case6.quizchallengeweb.service.question.useranswer.IUserAnswerService;
+import com.google.common.base.Preconditions;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +75,8 @@ public class ExamService implements IExamService {
 
     @Override
     public List<Exam> getAllExamByUserId(Long id) {
-        List<UserExam> allUserExams = userExamRepository.getAllByAppUserId(id);
+    	Preconditions.checkNotNull(id);
+    	List<UserExam> allUserExams = userExamRepository.getAllByAppUserId(id);
         List<Exam> examList = new ArrayList<>();
         for (UserExam userExam :
                 allUserExams) {

@@ -36,4 +36,16 @@ public class UserExam {
     @JsonIgnore
     @OneToMany(mappedBy = "userExam",fetch = FetchType.EAGER)
     private Set<UserAnswer> userAnswers;
+    
+    public UserExam() {
+	}
+
+	public UserExam(Long id, Date date, AppUser appUser, Exam exam) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.appUser = appUser;
+		this.exam = exam;
+	}
+    
 }

@@ -1,19 +1,28 @@
 package com.case6.quizchallengeweb.controller;
 
-import com.case6.quizchallengeweb.model.question.Answer;
-import com.case6.quizchallengeweb.model.question.Category;
-import com.case6.quizchallengeweb.service.question.answer.IAnswerService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import com.case6.quizchallengeweb.model.question.Answer;
+import com.case6.quizchallengeweb.service.question.answer.IAnswerService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/answers")
+@Slf4j
 public class AnswerController {
     @Autowired
     private IAnswerService answerService;
@@ -29,21 +38,10 @@ public class AnswerController {
             answerService.save(answer);
             return new ResponseEntity<>(answer, HttpStatus.ACCEPTED);
         } catch (Exception e) {
+        	log.error("createAnswer error", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @DeleteMapping("/{id}")
-//    public  ResponseEntity<Answer>deleteAnswer(@PathVariable Long id){
-//        try {
-//            Answer answer = answerService.findById(id).get();
-//            answerService.delete(id);
-//            return new ResponseEntity<>(answer, HttpStatus.OK);
-//        }catch (Exception exception){
-//            throw new ResponseStatusException(
-//                    HttpStatus.BAD_REQUEST, "Provide correct Actor Id", exception);
-//        }
-//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Answer> deleteAnswer(@PathVariable Long id) {

@@ -29,4 +29,23 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser")
     @JsonIgnore
     private Set<UserExam> userExams;
+    
+    public AppUser() {
+	}
+
+	public AppUser(Long id, String username, String password, String fullname, Set<AppRole> roles) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.roles = roles;
+	}
+
+
+	public AppUser(Long id) {
+		super();
+		this.id = id;
+	}
+    
 }

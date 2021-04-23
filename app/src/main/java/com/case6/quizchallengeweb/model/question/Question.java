@@ -16,28 +16,39 @@ import java.util.Set;
 @Entity
 @Table
 public class Question {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String title;
+	private String title;
 
-    private boolean active;
+	private boolean active;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private Type type;
+	@ManyToOne
+	@JoinColumn(name = "type_id")
+	private Type type;
 
+	@OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+	private Set<Answer> answers;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+	private Set<ExamQuestion> examQuestions;
 
-    @OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
-    private Set<Answer> answers;
+	public Question() {
+	}
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
-    private Set<ExamQuestion> examQuestions;
+	public Question(Long id, String title, boolean active, Category category, Type type) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.active = active;
+		this.category = category;
+		this.type = type;
+	}
+
 }
